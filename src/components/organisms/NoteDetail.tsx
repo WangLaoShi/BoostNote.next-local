@@ -20,7 +20,7 @@ import EditorThemeSelect from '../molecules/EditorThemeSelect'
 import EditorKeyMapSelect from '../molecules/EditorKeyMapSelect'
 import { addIpcListener, removeIpcListener } from '../../lib/electronOnly'
 import { MarkerRange, Position } from 'codemirror'
-import LocalSearch from './LocalSearch'
+import LocalSearch, { scrollEditorToLine } from './LocalSearch'
 import { SearchReplaceOptions } from '../../lib/search/search'
 import {
   borderTop,
@@ -171,6 +171,12 @@ class NoteDetail extends React.Component<NoteDetailProps, NoteDetailState> {
         ? this.props.initialCursorPosition
         : this.state.currentCursor
     )
+    scrollEditorToLine(
+      this.codeMirror,
+      this.props.initialCursorPosition != null
+        ? this.props.initialCursorPosition.line
+        : this.state.currentCursor.line
+    )
   }
 
   componentDidUpdate(_prevProps: NoteDetailProps, prevState: NoteDetailState) {
@@ -214,7 +220,8 @@ class NoteDetail extends React.Component<NoteDetailProps, NoteDetailState> {
   }
 
   updateContent = (
-    newValueOrUpdater: string | ((prevValue: string) => string)
+    newValueOrUpdater: string | ((prevValue: string) => string),
+    checkboxUpdate = false
   ) => {
     const updater =
       typeof newValueOrUpdater === 'string'
@@ -227,6 +234,10 @@ class NoteDetail extends React.Component<NoteDetailProps, NoteDetailState> {
         }
       },
       () => {
+        if (this.codeMirror != null && checkboxUpdate) {
+          this.codeMirror.focus()
+          this.setInitialCursor()
+        }
         this.queueToSave()
       }
     )
@@ -589,7 +600,7 @@ class NoteDetail extends React.Component<NoteDetailProps, NoteDetailState> {
         key={note._id}
         codeMirrorRef={this.codeMirrorRef}
         value={this.state.content}
-        onChange={this.updateContent}
+        onChange={(updater) => this.updateContent(updater, false)}
         onPaste={this.handlePaste}
         onDrop={this.handleDrop}
         onCursorActivity={this.handleCursorActivity}
