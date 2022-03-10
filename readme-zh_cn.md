@@ -1,23 +1,11 @@
 <div align="center">
-  <h1><img src="static/logo.svg" width="30"> Boost Note Local</h1>
+  <h1><img src="static/logo.svg" width="30"> Boost Note 本地-中文版</h1>
 </div>
 
 Standalone app separated from Boost Note for better local space support. See [Roadmap](https://github.com/BoostIO/BoostNote.next-local/discussions/43).
 
-> ## Boost Note
->
-> If you want a collaborative app, please try Boost Note.(https://github.com/BoostIO/BoostNote-App)
->
-> ![uiimage](./static/img_ui.png)
->
-> <h2 align='center'>A collaborative real-time markdown note app for developer teams</h2>
->
-> ## Support Platform
->
-> - [Web app](https://boostnote.io)
-> - [Desktop app](https://boostnote.io/#download)
-> - [iOS app](https://apps.apple.com/gb/app/boost-note-mobile/id1576176505)
-> - [Android app](https://play.google.com/store/apps/details?id=com.boostio.boostnote2021)
+这个版本是基于BoostNote开发一个可以在本地使用文件夹运行的版本，而 Wanglaoshi 又将它汉化了，甚至修改了部分代码，以更加符合中国人的使用习惯。
+
 
 ## Authors & Maintainers
 
@@ -32,20 +20,20 @@ Standalone app separated from Boost Note for better local space support. See [Ro
 - [Blog](https://medium.com/boostnote)
 - [Reddit](https://www.reddit.com/r/Boostnote/)
 
-## Development
+## 开发
 
-### Folder structure
+### 文件夹结构
 
 - `dist` : Bundled electron app stuff. All executable and installable of the electron app are generated in this folder. You can generate this by `npm run prepack`, `npm run pack`, and `npm run release` scripts.
 - `compiled` : Compiled web app resources from `npm run build` script. The resources are for deploying the web app.
 - `electron` : Compiled electron resources from `npm run build:electron` script. You can run it by `npm start` script. The resources are for packaging the electron app.
 - `src` : Source code.
 
-### Build
+### 构建 build
 
 Please copy `.env.default` file and create a file named `.env` in the root of the project directory, or the build will fail.
 
-#### Electron app
+#### Electron 应用
 
 ```sh
 # Install dependencies
